@@ -1,0 +1,1101 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>C Programming 1st Note</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="15e599c0-57f2-8081-847f-dc257989f9ce" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="C%20Programming%201st%20Note%2015e599c057f28081847fdc257989f9ce/icons8-c-programming-480.png"/></div><h1 class="page-title">C Programming 1st Note</h1><p class="page-description"></p></header><div class="page-body"><p id="15e599c0-57f2-803a-8462-c4fd7747dc84" class="">PDF Note Download Link</p><figure id="15e599c0-57f2-8045-9a4c-e4df3f3085a3"><div class="source"><a href="C%20Programming%201st%20Note%2015e599c057f28081847fdc257989f9ce/CP_N1.pdf">CP N1.pdf</a></div></figure><h1 id="15e599c0-57f2-80b2-86c1-ce67fa1f41a4" class="">ব্রাঞ্চিং স্টেটমেন্ট: সি প্রোগ্রামিং এবং বাস্তব জীবনের উদাহরণ</h1><p id="15e599c0-57f2-80ac-911e-c87104dd7c0a" class=""><strong>ব্রাঞ্চিং স্টেটমেন্ট</strong> হলো প্রোগ্রামিং লজিকের একটি গুরুত্বপূর্ণ অংশ, যা প্রোগ্রামের কার্যপ্রবাহকে বিভিন্ন পথে পরিচালিত করে। সি প্রোগ্রামিং ভাষায় ব্রাঞ্চিং স্টেটমেন্ট ব্যবহার করে নির্দিষ্ট শর্ত অনুযায়ী বিভিন্ন সিদ্ধান্ত নেওয়া এবং বিভিন্ন কোড ব্লক কার্যকর করা যায়। এই প্রবন্ধে আমরা ব্রাঞ্চিং স্টেটমেন্টের প্রকারভেদ এবং তাদের বাস্তব জীবনের ব্যবহার সম্পর্কে বিস্তারিত আলোচনা করব।</p><hr id="15e599c0-57f2-8012-992d-e0fa04587458"/><h3 id="15e599c0-57f2-80d8-804e-ed8c59a18714" class="">ব্রাঞ্চিং স্টেটমেন্ট কী?</h3><p id="15e599c0-57f2-803a-b335-cca1cfcef0c6" class="">ব্রাঞ্চিং স্টেটমেন্ট এমন একটি টুল, যা প্রোগ্রামকে শর্ত অনুযায়ী ভিন্ন ভিন্ন নির্দেশ (instruction) কার্যকর করতে সাহায্য করে। সহজ কথায়, ব্রাঞ্চিং স্টেটমেন্ট ব্যবহার করে আমরা প্রোগ্রামকে বিভিন্ন পথে নিয়ে যেতে পারি।</p><hr id="15e599c0-57f2-8078-afb1-fa55fa0ada5e"/><h3 id="15e599c0-57f2-805a-b658-cc3d3e93e524" class="">সি প্রোগ্রামিং-এ ব্রাঞ্চিং স্টেটমেন্টের প্রকারভেদ</h3><p id="15e599c0-57f2-80c2-96b6-d8a862ed91b4" class="">সি ভাষায় ব্রাঞ্চিং স্টেটমেন্ট প্রধানত তিন ধরনের হয়:</p><ol type="1" id="15e599c0-57f2-80df-9753-f57279bc6516" class="numbered-list" start="1"><li><strong>if স্টেটমেন্ট</strong></li></ol><ol type="1" id="15e599c0-57f2-8011-903a-f633a13b022f" class="numbered-list" start="2"><li><strong>switch স্টেটমেন্ট</strong></li></ol><ol type="1" id="15e599c0-57f2-808f-9a95-d5cd43c48a99" class="numbered-list" start="3"><li><strong>goto স্টেটমেন্ট</strong></li></ol><hr id="15e599c0-57f2-800c-a90f-d2f91a06875a"/><h3 id="15e599c0-57f2-80f4-98b2-d849d27b1bc6" class="">১. <strong>if স্টেটমেন্ট</strong></h3><p id="15e599c0-57f2-800d-a9ce-ca68e54de0dc" class=""><code>if</code> স্টেটমেন্ট শর্ত যাচাই করার জন্য ব্যবহৃত হয়। শর্ত সত্য (true) হলে নির্দিষ্ট কোড ব্লক কার্যকর হয়, আর মিথ্যা (false) হলে এটি এড়িয়ে যায়।</p><h3 id="15e599c0-57f2-8005-9639-cd73b3c06703" class=""><strong>ধরন:</strong></h3><ul id="15e599c0-57f2-80b0-a92c-deaee277ca6a" class="bulleted-list"><li style="list-style-type:disc"><strong>if</strong></li></ul><ul id="15e599c0-57f2-80e5-a684-e77e1b2bd4f8" class="bulleted-list"><li style="list-style-type:disc"><strong>if-else</strong></li></ul><ul id="15e599c0-57f2-8000-844d-d96bf45e35b5" class="bulleted-list"><li style="list-style-type:disc"><strong>if-else if-else</strong></li></ul><h3 id="15e599c0-57f2-8052-a06c-da5424a6b8c6" class=""><strong>Syntax:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-807d-a6e4-cfa4971f5570" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">if (condition) {
+    // শর্ত সত্য হলে এই কোড কার্যকর হবে
+} else {
+    // শর্ত মিথ্যা হলে এই কোড কার্যকর হবে
+}
+</code></pre><h3 id="15e599c0-57f2-80b4-8c73-e015b576954a" class=""><strong>বাস্তব জীবনের উদাহরণ: ছাড় গণনা</strong></h3><p id="15e599c0-57f2-80a2-9f38-c9f4962f42c7" class="">একটি দোকানে যদি ১০০০ টাকার বেশি কেনাকাটা হয়, তাহলে গ্রাহক ১০% ছাড় পাবে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80ef-8063-fb21012db4a0" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int amount;
+    printf(&quot;আপনার মোট কেনাকাটার পরিমাণ লিখুন: &quot;);
+    scanf(&quot;%d&quot;, &amp;amount);
+
+    if (amount &gt; 1000) {
+        printf(&quot;আপনি ১০ শতাংশ ছাড় পেয়েছেন।\n&quot;);
+    } else {
+        printf(&quot;আপনার কোনো ছাড় নেই।\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-806e-832e-df8415f2b0c7" class=""><strong>ব্যবহারক্ষেত্র:</strong> ডিসকাউন্ট গণনা, বৈধতা যাচাই (validation)।</p><hr id="15e599c0-57f2-80f5-b18e-e8c7898dd87a"/><h3 id="15e599c0-57f2-807d-962d-d55264cca960" class="">২. <strong>switch স্টেটমেন্ট</strong></h3><p id="15e599c0-57f2-80da-a08c-c53cb726e8a5" class=""><code>switch</code> স্টেটমেন্ট তখন ব্যবহার করা হয় যখন একাধিক শর্ত যাচাই করতে হয়। এটি বিভিন্ন কেস অনুযায়ী নির্ধারিত কোড কার্যকর করে।</p><h3 id="15e599c0-57f2-80fc-b0a6-cca68c0a1f98" class=""><strong>Syntax:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8054-a66d-c6ea3f0d7388" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">switch (expression) {
+    case value1:
+        // value1 এর জন্য কোড
+        break;
+    case value2:
+        // value2 এর জন্য কোড
+        break;
+    default:
+        // কোনো কেস না মিললে এই কোড কার্যকর হবে
+}
+</code></pre><h3 id="15e599c0-57f2-803a-a77f-f26645713d75" class=""><strong>বাস্তব জীবনের উদাহরণ: মেনু ভিত্তিক প্রোগ্রাম</strong></h3><p id="15e599c0-57f2-805e-a24e-f3e8e77f4ff3" class="">ধরা যাক, একজন ব্যবহারকারী বিভিন্ন অপশন থেকে একটি নির্বাচন করবে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-809e-b979-f27814c9b807" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int choice;
+    printf(&quot;মেনু:\n&quot;);
+    printf(&quot;1. চা\n2. কফি\n3. পানি\n&quot;);
+    printf(&quot;আপনার পছন্দ দিন (1-3): &quot;);
+    scanf(&quot;%d&quot;, &amp;choice);
+
+    switch (choice) {
+        case 1:
+            printf(&quot;আপনার চা পরিবেশন করা হচ্ছে।\n&quot;);
+            break;
+        case 2:
+            printf(&quot;আপনার কফি পরিবেশন করা হচ্ছে।\n&quot;);
+            break;
+        case 3:
+            printf(&quot;আপনার পানি পরিবেশন করা হচ্ছে।\n&quot;);
+            break;
+        default:
+            printf(&quot;ভুল পছন্দ। মেনু থেকে সঠিক সংখ্যা দিন।\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-80af-b94d-da3014105c4d" class=""><strong>ব্যবহারক্ষেত্র:</strong> রেস্টুরেন্ট মেনু, ইউজার ইন্টারফেস।</p><hr id="15e599c0-57f2-8059-9d96-df56f80e43c5"/><h3 id="15e599c0-57f2-8055-95fb-cb7a631b0997" class="">৩. <strong>goto স্টেটমেন্ট</strong></h3><p id="15e599c0-57f2-80a3-913c-d09b20c0d893" class=""><code>goto</code> স্টেটমেন্ট সরাসরি প্রোগ্রামের অন্য একটি অংশে লাফ দেওয়ার জন্য ব্যবহৃত হয়। এটি ব্যবহার করা নিরুৎসাহিত করা হয় কারণ এটি প্রোগ্রামের গঠনশীলতা নষ্ট করতে পারে। তবে কিছু নির্দিষ্ট পরিস্থিতিতে এটি উপকারী।</p><h3 id="15e599c0-57f2-80ac-b50c-f0e74aa4e89d" class=""><strong>Syntax:</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80df-8419-dc0052550345" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">goto label;
+// অন্যান্য কোড
+label:
+// লেবেলে সংযুক্ত কোড
+</code></pre><h3 id="15e599c0-57f2-80c5-8c93-e08a631156b8" class=""><strong>বাস্তব জীবনের উদাহরণ: ত্রুটি পরিচালনা (Error Handling)</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8075-9c9c-e3fb8192ec6d" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int number;
+    printf(&quot;একটি পজিটিভ সংখ্যা দিন: &quot;);
+    scanf(&quot;%d&quot;, &amp;number);
+
+    if (number &lt; 0) {
+        goto error;
+    }
+
+    printf(&quot;আপনার দেওয়া সংখ্যা: %d\n&quot;, number);
+    return 0;
+
+error:
+    printf(&quot;ত্রুটি: পজিটিভ সংখ্যা দিন।\n&quot;);
+    return 1;
+}
+</code></pre><p id="15e599c0-57f2-80d4-b807-f37700a2110e" class=""><strong>ব্যবহারক্ষেত্র:</strong> ত্রুটি পরিচালনা, লজিকাল জাম্প।</p><hr id="15e599c0-57f2-8093-8c8e-d066b394654c"/><h3 id="15e599c0-57f2-80df-9e85-cbc3c83bd17d" class="">বাস্তব জীবনের আরও ব্যবহার</h3><h3 id="15e599c0-57f2-8045-a360-db66f5088337" class="">১. <strong>গ্রেড গণনা</strong></h3><p id="15e599c0-57f2-808e-8c05-f379e05d8043" class="">শিক্ষার্থীর নম্বর অনুযায়ী গ্রেড নির্ধারণ করতে ব্রাঞ্চিং স্টেটমেন্ট ব্যবহার করা যায়।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80db-8d7d-f5932770abb7" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int marks;
+    printf(&quot;আপনার প্রাপ্ত নম্বর লিখুন: &quot;);
+    scanf(&quot;%d&quot;, &amp;marks);
+
+    if (marks &gt;= 90) {
+        printf(&quot;আপনার গ্রেড: A\n&quot;);
+    } else if (marks &gt;= 80) {
+        printf(&quot;আপনার গ্রেড: B\n&quot;);
+    } else if (marks &gt;= 70) {
+        printf(&quot;আপনার গ্রেড: C\n&quot;);
+    } else {
+        printf(&quot;আপনার গ্রেড: F\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8064-91fb-c44d5b296950" class=""><strong>ব্যবহারক্ষেত্র:</strong> একাডেমিক গ্রেডিং সিস্টেম।</p><h3 id="15e599c0-57f2-8050-858b-fb1d6f0b5dc8" class="">২. <strong>ব্যাংক অ্যাকাউন্ট লেনদেন</strong></h3><p id="15e599c0-57f2-80ee-95e6-f71be695ff46" class="">ব্যবহারকারী ডিপোজিট বা উত্তোলনের অপশন বেছে নিতে পারে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80b5-aab9-d28750dc6576" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int choice;
+    float balance = 1000.0, amount;
+
+    printf(&quot;ব্যাংক মেনু:\n&quot;);
+    printf(&quot;1. টাকা জমা\n2. টাকা উত্তোলন\n3. ব্যালেন্স দেখুন\n&quot;);
+    printf(&quot;আপনার পছন্দ দিন: &quot;);
+    scanf(&quot;%d&quot;, &amp;choice);
+
+    switch (choice) {
+        case 1:
+            printf(&quot;জমার পরিমাণ লিখুন: &quot;);
+            scanf(&quot;%f&quot;, &amp;amount);
+            balance += amount;
+            printf(&quot;নতুন ব্যালেন্স: %.2f\n&quot;, balance);
+            break;
+        case 2:
+            printf(&quot;উত্তোলনের পরিমাণ লিখুন: &quot;);
+            scanf(&quot;%f&quot;, &amp;amount);
+            if (amount &gt; balance) {
+                printf(&quot;পর্যাপ্ত ব্যালেন্স নেই।\n&quot;);
+            } else {
+                balance -= amount;
+                printf(&quot;উত্তোলনের পর সফল ব্যালেন্স: %.2f\n&quot;, balance);
+            }
+            break;
+        case 3:
+            printf(&quot;বর্তমান ব্যালেন্স: %.2f\n&quot;, balance);
+            break;
+        default:
+            printf(&quot;ভুল অপশন। সঠিক অপশন দিন।\n&quot;);
+    }
+
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-802e-a4e2-c73ce238300f" class=""><strong>ব্যবহারক্ষেত্র:</strong> ব্যাঙ্কিং সফটওয়্যার।</p><hr id="15e599c0-57f2-8005-b2e9-e467fe83c0d0"/><h1 id="15e599c0-57f2-80d8-a10d-fff314e4f6b7" class="">সি প্রোগ্রামিং-এ লুপিং স্টেটমেন্ট: একটি বিশদ আলোচনা</h1><p id="15e599c0-57f2-8035-ac28-d714334025d3" class="">সি প্রোগ্রামিং ভাষায় <strong>লুপিং স্টেটমেন্ট</strong> হলো প্রোগ্রামিং লজিকের একটি গুরুত্বপূর্ণ অংশ। এটি প্রোগ্রামের একটি নির্দিষ্ট অংশ বারবার পুনরাবৃত্তি করার জন্য ব্যবহৃত হয়। লুপিং কৌশল ব্যবহার করে আমরা সময় বাঁচাতে পারি এবং কোডকে ছোট ও কার্যকর করতে পারি। এই প্রবন্ধে আমরা সি প্রোগ্রামিং-এ ব্যবহৃত বিভিন্ন লুপিং স্টেটমেন্ট যেমন <strong>for loop</strong>, <strong>while loop</strong>, এবং <strong>do-while loop</strong> সম্পর্কে বিশদে আলোচনা করব।</p><hr id="15e599c0-57f2-8038-8efd-e919b8176fba"/><h3 id="15e599c0-57f2-806e-817f-ef3eda04fb45" class="">লুপের ধারণা</h3><p id="15e599c0-57f2-80db-a9c4-c11ade60ed57" class="">লুপ হলো এমন একটি কৌশল যেখানে একই কোড বারবার পুনরায় চালানো হয় যতক্ষণ পর্যন্ত নির্দিষ্ট শর্ত পূরণ হয়। লুপের প্রধান উপাদানগুলো হলো:</p><ol type="1" id="15e599c0-57f2-80f2-abb2-e88a2fe34a84" class="numbered-list" start="1"><li><strong>শুরু করার অবস্থান (Initialization):</strong> লুপ শুরু করার জন্য একটি প্রাথমিক মান সেট করা হয়।</li></ol><ol type="1" id="15e599c0-57f2-8093-a736-f612876aeafb" class="numbered-list" start="2"><li><strong>শর্ত (Condition):</strong> একটি নির্দিষ্ট শর্ত যা লুপের কার্যক্রম চালিয়ে যাওয়ার জন্য পর্যালোচনা করা হয়।</li></ol><ol type="1" id="15e599c0-57f2-803a-8455-e6639e504bb7" class="numbered-list" start="3"><li><strong>পরিবর্তন/হালনাগাদ (Update):</strong> প্রতি পুনরাবৃত্তির পর শর্ত পূরণ না হওয়া পর্যন্ত মান আপডেট করা হয়।</li></ol><hr id="15e599c0-57f2-805a-bc4d-e9c26bcfb4d3"/><h3 id="15e599c0-57f2-805e-8475-fd27a8bc6e92" class="">সি প্রোগ্রামিং-এর প্রধান লুপিং স্টেটমেন্ট</h3><p id="15e599c0-57f2-8080-bff8-cc7d9449c137" class="">সি ভাষায় প্রধানত তিন প্রকারের লুপ ব্যবহৃত হয়:</p><ol type="1" id="15e599c0-57f2-80cb-b55b-fbad356ed3ab" class="numbered-list" start="1"><li><strong>for loop</strong></li></ol><ol type="1" id="15e599c0-57f2-80da-ae7f-f75772fe36ed" class="numbered-list" start="2"><li><strong>while loop</strong></li></ol><ol type="1" id="15e599c0-57f2-80c7-a8ec-c7fc111d051f" class="numbered-list" start="3"><li><strong>do-while loop</strong></li></ol><h3 id="15e599c0-57f2-8032-b475-c1486e540a30" class="">১. <strong>for loop</strong></h3><p id="15e599c0-57f2-8085-88b8-eb7b6d8414aa" class=""><code>for loop</code> হলো সবচেয়ে বেশি ব্যবহৃত লুপ। এটি তখন ব্যবহৃত হয় যখন পুনরাবৃত্তির সংখ্যা পূর্বে থেকেই নির্ধারিত থাকে।</p><p id="15e599c0-57f2-807b-8bd1-c3caf023f737" class=""><strong>Syntax:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8065-8d2b-d3ec3b01f210" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">for (initialization; condition; update) {
+    // লুপের মধ্যে চালানোর কোড
+}
+</code></pre><p id="15e599c0-57f2-8033-9039-ed199cca416a" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8034-843d-e18b8f2133ac" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i;
+    for (i = 1; i &lt;= 5; i++) {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-805c-8bfa-ed8118d651d8" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8012-a734-d1f19f88cd73" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><h3 id="15e599c0-57f2-8043-852d-d2129835c655" class="">ব্যাখ্যা:</h3><ol type="1" id="15e599c0-57f2-8098-ab1c-dbbce612cf1c" class="numbered-list" start="1"><li><strong>Initialization:</strong> <code>i = 1</code> দিয়ে লুপ শুরু হয়।</li></ol><ol type="1" id="15e599c0-57f2-80f1-a4f8-c71138ded49a" class="numbered-list" start="2"><li><strong>Condition:</strong> <code>i &lt;= 5</code> শর্তটি লুপ চালানোর অনুমতি দেয়।</li></ol><ol type="1" id="15e599c0-57f2-8036-b226-c55965f85cca" class="numbered-list" start="3"><li><strong>Update:</strong> প্রতি পুনরাবৃত্তির শেষে <code>i++</code> দ্বারা মান এক বৃদ্ধি পায়।</li></ol><hr id="15e599c0-57f2-80c0-afdb-c331d7a4b6a1"/><h3 id="15e599c0-57f2-80a2-9b2b-cffe40a31fcf" class="">২. <strong>while loop</strong></h3><p id="15e599c0-57f2-8070-8b24-f29740e0c6e1" class=""><code>while loop</code> এমন ক্ষেত্রে ব্যবহার করা হয় যখন পুনরাবৃত্তি চালানোর শর্ত পূর্বেই জানা থাকে।</p><p id="15e599c0-57f2-805b-93de-ca4bc8c8ca34" class=""><strong>Syntax:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8037-a9ac-e74ee062d033" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">while (condition) {
+    // লুপের মধ্যে চালানোর কোড
+}
+</code></pre><p id="15e599c0-57f2-80e7-ac1a-e50b6c79a48c" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-801f-a35d-e36bb2825aaa" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i = 1;
+    while (i &lt;= 5) {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+        i++;
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8032-8281-e90777e4295f" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-807f-aff1-e4f2f2e4a20d" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><h3 id="15e599c0-57f2-80b4-9a64-ed5326731a41" class="">ব্যাখ্যা:</h3><ol type="1" id="15e599c0-57f2-808f-95d9-e03ddcede7ad" class="numbered-list" start="1"><li><strong>Condition:</strong> লুপটি চালু হওয়ার আগে <code>i &lt;= 5</code> শর্তটি পরীক্ষা করা হয়।</li></ol><ol type="1" id="15e599c0-57f2-8033-8561-db4efdb4b1b8" class="numbered-list" start="2"><li><strong>Update:</strong> <code>i++</code> দ্বারা প্রতিটি পুনরাবৃত্তির পর মান এক বৃদ্ধি পায়।</li></ol><hr id="15e599c0-57f2-80f1-9cdf-ed0f4f8f1753"/><h3 id="15e599c0-57f2-80a6-b0b6-c8e111aed302" class="">৩. <strong>do-while loop</strong></h3><p id="15e599c0-57f2-803c-8329-f93112ac0d9f" class=""><code>do-while loop</code> হলো বিশেষ একটি লুপ, যেখানে কমপক্ষে একবার লুপের কোড অবশ্যই চালানো হয়। এর শর্তটি পুনরাবৃত্তির শেষে পরীক্ষা করা হয়।</p><p id="15e599c0-57f2-8091-bcf8-e7a98aaa08fb" class=""><strong>Syntax:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8002-96fc-f574349eb4f4" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">do {
+    // লুপের মধ্যে চালানোর কোড
+} while (condition);
+</code></pre><p id="15e599c0-57f2-80f4-b344-ea773efe56e6" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8073-ae7b-e07fd65b3a30" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i = 1;
+    do {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+        i++;
+    } while (i &lt;= 5);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-80cf-b4ab-e5843fb7919e" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80c9-95dd-e7c92ffdbb5c" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><h3 id="15e599c0-57f2-80c9-8aeb-f57c7dec9e1e" class="">ব্যাখ্যা:</h3><ol type="1" id="15e599c0-57f2-80d8-bd2f-e58c30c2c383" class="numbered-list" start="1"><li>প্রথমে লুপের কোড চালানো হয়।</li></ol><ol type="1" id="15e599c0-57f2-80e9-9b91-ea2ef1a512ce" class="numbered-list" start="2"><li>পরে শর্তটি (<code>i &lt;= 5</code>) পরীক্ষা করা হয়।</li></ol><ol type="1" id="15e599c0-57f2-8080-9514-e2b7917b1f8e" class="numbered-list" start="3"><li>শর্ত সত্য হলে লুপ পুনরায় চালানো হয়।</li></ol><hr id="15e599c0-57f2-8049-9882-f3ef9f6daf98"/><h3 id="15e599c0-57f2-808a-9fd9-dea291a5e479" class="">লুপ ব্রেক এবং কন্টিনিউ স্টেটমেন্ট</h3><h3 id="15e599c0-57f2-80e2-97c7-c26738d0e95a" class=""><strong>break স্টেটমেন্ট</strong></h3><p id="15e599c0-57f2-800a-8dc6-e09ee0d6caef" class=""><code>break</code> স্টেটমেন্ট লুপ থেকে নির্ধারিত শর্ত পূরণ হলে সম্পূর্ণ লুপ বন্ধ করে দেয়।</p><p id="15e599c0-57f2-80d8-bfed-ec115520e23f" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8025-b374-c75544a32b1f" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i;
+    for (i = 1; i &lt;= 5; i++) {
+        if (i == 3) {
+            break;
+        }
+        printf(&quot;নম্বর: %d\n&quot;, i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8085-a331-cbfe69802841" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8012-9aa6-f5f500525253" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+</code></pre><h3 id="15e599c0-57f2-80e1-bc40-c08852b6f1ba" class=""><strong>continue স্টেটমেন্ট</strong></h3><p id="15e599c0-57f2-80b5-b6b1-c54a7752780c" class=""><code>continue</code> স্টেটমেন্ট লুপের বাকি অংশ এড়িয়ে পরবর্তী পুনরাবৃত্তি শুরু করে।</p><p id="15e599c0-57f2-8070-a680-ef8b25340622" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80d0-a62c-fee88a0c83df" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i;
+    for (i = 1; i &lt;= 5; i++) {
+        if (i == 3) {
+            continue;
+        }
+        printf(&quot;নম্বর: %d\n&quot;, i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-801f-bfae-e83a82f24384" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-802d-a974-e408a3c6c7ed" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 4
+নম্বর: 5
+</code></pre><hr id="15e599c0-57f2-80e0-b528-c487f2205871"/><h3 id="15e599c0-57f2-8096-8674-e94682ec09f8" class=""><strong>for loop</strong>, <strong>while loop</strong>, এবং <strong>do-while loop</strong> এর মধ্যে পার্থক্য</h3><p id="15e599c0-57f2-805a-968e-e76a571d44f5" class="">সি প্রোগ্রামিংয়ের তিন ধরনের লুপ— <strong>for loop</strong>, <strong>while loop</strong>, এবং <strong>do-while loop</strong>—একই উদ্দেশ্যে ব্যবহার করা হলেও, এদের কাঠামো, কার্যপ্রণালী, এবং ব্যবহারক্ষেত্রে ভিন্নতা রয়েছে। নিচে এদের মধ্যে মূল পার্থক্যগুলি বর্ণনা করা হলো:</p><table id="15e599c0-57f2-807c-95ab-e6918e885baa" class="simple-table"><tbody><tr id="15e599c0-57f2-8097-b00c-ea340b2261e5"><td id=":GHa" class=""><strong>পার্থক্যের দিক</strong></td><td id="]vR]" class=""><strong>for loop</strong></td><td id="~RSx" class=""><strong>while loop</strong></td><td id="GEIX" class=""><strong>do-while loop</strong></td></tr><tr id="15e599c0-57f2-80b4-8f41-f77f9ceef137"><td id=":GHa" class=""><strong>শুরু করার প্রক্রিয়া</strong></td><td id="]vR]" class="">লুপের শিরোনামেই (header) প্রাথমিক মান নির্ধারণ করা হয়।</td><td id="~RSx" class="">লুপের শিরোনামের বাইরে প্রাথমিক মান নির্ধারণ করতে হয়।</td><td id="GEIX" class="">লুপের শিরোনামের বাইরে প্রাথমিক মান নির্ধারণ করতে হয়।</td></tr><tr id="15e599c0-57f2-807d-81a6-fa9b58ede4dc"><td id=":GHa" class=""><strong>শর্ত যাচাই</strong></td><td id="]vR]" class="">লুপ চালানোর আগে শর্ত যাচাই করা হয়।</td><td id="~RSx" class="">লুপ চালানোর আগে শর্ত যাচাই করা হয়।</td><td id="GEIX" class="">লুপের কোড একবার চালানোর পর শর্ত যাচাই করা হয়।</td></tr><tr id="15e599c0-57f2-8031-930a-e09042fa5215"><td id=":GHa" class=""><strong>চালানোর নিশ্চয়তা</strong></td><td id="]vR]" class="">শর্ত প্রথমে সত্য হলে তবেই লুপ চালানো হয়।</td><td id="~RSx" class="">শর্ত প্রথমে সত্য হলে তবেই লুপ চালানো হয়।</td><td id="GEIX" class="">লুপ কমপক্ষে একবার অবশ্যই চালানো হয়, শর্ত মিথ্যা হলেও।</td></tr><tr id="15e599c0-57f2-806a-b1f9-d6557e6f5bc6"><td id=":GHa" class=""><strong>স্ট্রাকচার</strong></td><td id="]vR]" class="">এক লাইনে শুরু, শর্ত এবং আপডেট উল্লেখ করা হয়।</td><td id="~RSx" class="">শর্ত এবং আপডেট পৃথকভাবে উল্লেখ করতে হয়।</td><td id="GEIX" class="">লুপের কোড চালানোর পর শর্ত উল্লেখ করা হয়।</td></tr><tr id="15e599c0-57f2-803a-9681-e7bfad3707de"><td id=":GHa" class=""><strong>ব্যবহারক্ষেত্র</strong></td><td id="]vR]" class="">পুনরাবৃত্তির সংখ্যা আগে থেকে জানা থাকলে ব্যবহার করা হয়।</td><td id="~RSx" class="">পুনরাবৃত্তি চালানোর শর্ত আগে থেকে জানা থাকলে ব্যবহার করা হয়।</td><td id="GEIX" class="">যখন শর্ত যাচাইয়ের আগে লুপ একবার চালানো আবশ্যক।</td></tr></tbody></table><hr id="15e599c0-57f2-8012-b015-cae69ebd1abf"/><h3 id="15e599c0-57f2-80d2-bcaa-c8b937289384" class="">উদাহরণ সহ ব্যাখ্যা</h3><h3 id="15e599c0-57f2-8039-9522-e40b6e39c983" class=""><strong>for loop</strong></h3><p id="15e599c0-57f2-801c-be26-e6bb51e788df" class=""><code>for loop</code> পুনরাবৃত্তির সংখ্যা আগে থেকেই নির্ধারিত থাকলে ব্যবহার করা হয়।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-807f-a106-fe303a665393" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    for (int i = 1; i &lt;= 5; i++) {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8072-8ea0-d916294a5d01" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-808e-8a20-c71edbd47ac7" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><h3 id="15e599c0-57f2-804e-a91d-c671ee8cd725" class=""><strong>while loop</strong></h3><p id="15e599c0-57f2-8005-a389-e44464b986ed" class=""><code>while loop</code> তখন ব্যবহার করা হয় যখন শর্ত পূরণ না হওয়া পর্যন্ত লুপ চালানো প্রয়োজন।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80b7-8141-e1682d571d55" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i = 1;
+    while (i &lt;= 5) {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+        i++;
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-801b-a6fc-dea879e43064" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8037-9618-de204a71dcb8" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><h3 id="15e599c0-57f2-80a9-9010-d14646c97c3d" class=""><strong>do-while loop</strong></h3><p id="15e599c0-57f2-8038-9dcc-ee5966122c09" class=""><code>do-while loop</code> ব্যবহার করা হয় যখন লুপ একবার চালানো আবশ্যক, তারপর শর্ত যাচাই হয়।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80a7-a899-ebaeb7343a6f" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int i = 1;
+    do {
+        printf(&quot;নম্বর: %d\n&quot;, i);
+        i++;
+    } while (i &lt;= 5);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-809d-8130-ead5d04d57e7" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80fd-87b8-ce07c9deb869" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">নম্বর: 1
+নম্বর: 2
+নম্বর: 3
+নম্বর: 4
+নম্বর: 5
+</code></pre><hr id="15e599c0-57f2-8007-bc94-df1122fa87c5"/><h3 id="15e599c0-57f2-8015-8bf9-e439e0d1ec9d" class="">সংক্ষিপ্ত তুলনা</h3><table id="15e599c0-57f2-808d-b634-e08f8a204472" class="simple-table"><tbody><tr id="15e599c0-57f2-8030-a7ce-c7a93c8d43a8"><td id="^qXW" class=""><strong>লুপের ধরন</strong></td><td id="Yo~?" class=""><strong>শর্ত আগে যাচাই হয়?</strong></td><td id="o[wK" class=""><strong>লুপ অন্তত একবার চালানো হয়?</strong></td><td id="AFT}" class=""><strong>ব্যবহারক্ষেত্র</strong></td></tr><tr id="15e599c0-57f2-80fe-b921-e44ab861420a"><td id="^qXW" class=""><strong>for loop</strong></td><td id="Yo~?" class="">হ্যাঁ</td><td id="o[wK" class="">না</td><td id="AFT}" class="">পুনরাবৃত্তির সংখ্যা নির্ধারিত থাকলে।</td></tr><tr id="15e599c0-57f2-8079-8283-d7e964090070"><td id="^qXW" class=""><strong>while loop</strong></td><td id="Yo~?" class="">হ্যাঁ</td><td id="o[wK" class="">না</td><td id="AFT}" class="">শর্ত পূরণ না হওয়া পর্যন্ত চালাতে।</td></tr><tr id="15e599c0-57f2-8090-a85a-c8d5a34409ff"><td id="^qXW" class=""><strong>do-while loop</strong></td><td id="Yo~?" class="">না</td><td id="o[wK" class="">হ্যাঁ</td><td id="AFT}" class="">শর্ত যাচাইয়ের আগে একবার চালাতে।</td></tr></tbody></table><hr id="15e599c0-57f2-8072-b9d8-cf58d9368661"/><h1 id="15e599c0-57f2-8066-8d4f-f80e551c558f" class="">লুপের বাস্তব জীবনের ব্যবহার: সি প্রোগ্রামিং-এ উদাহরণ সহ</h1><p id="15e599c0-57f2-80a3-8bec-eb9263a7c1be" class=""><strong>লুপ</strong> হল এমন একটি টুল যা প্রোগ্রামিংয়ে পুনরাবৃত্তিমূলক কাজ সহজ করতে ব্যবহার করা হয়। বাস্তব জীবনের বিভিন্ন সমস্যার সমাধানে লুপ অত্যন্ত কার্যকর। নিচে লুপের কিছু বাস্তব জীবনের ব্যবহারিক উদাহরণ তুলে ধরা হলো:</p><hr id="15e599c0-57f2-80fa-abec-f8c6272e92f3"/><h3 id="15e599c0-57f2-8013-8c6a-e42e7595cbb4" class="">১. <strong>নাম্বারের তালিকা তৈরি এবং প্রিন্ট করা</strong></h3><p id="15e599c0-57f2-8072-8217-c24f6cf6e676" class="">ধরা যাক, আপনাকে ১ থেকে ১০০ পর্যন্ত নাম্বার প্রিন্ট করতে বলা হয়েছে। এটি ম্যানুয়ালি করলে অনেক সময় লাগবে। কিন্তু লুপ ব্যবহার করে সহজেই কাজটি করা সম্ভব।</p><p id="15e599c0-57f2-8004-9655-dd4adc57b72b" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80dc-83a7-c4776c12fc30" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    for (int i = 1; i &lt;= 100; i++) {
+        printf(&quot;%d\n&quot;, i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-80df-9442-cf6a7f777eeb" class=""><strong>ব্যবহারক্ষেত্র:</strong> পরীক্ষার ফলাফলের তালিকা তৈরি, সিরিয়াল নম্বর তৈরি ইত্যাদি।</p><hr id="15e599c0-57f2-80fb-82a5-fbb97c768a71"/><h3 id="15e599c0-57f2-8084-8e29-d4896fd0ab73" class="">২. <strong>যোগফল নির্ণয় (Summation Calculation)</strong></h3><p id="15e599c0-57f2-803e-be2d-df5917665e7e" class="">কোনো নির্দিষ্ট সংখ্যার পরিসরের যোগফল বের করার জন্য লুপ ব্যবহার করা হয়।</p><p id="15e599c0-57f2-80b2-9e85-fdb8e81e51bf" class=""><strong>উদাহরণ:</strong><br/>১ থেকে ১০ পর্যন্ত সংখ্যাগুলোর যোগফল বের করা:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8032-886a-dd8a904732ed" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int sum = 0;
+    for (int i = 1; i &lt;= 10; i++) {
+        sum += i;
+    }
+    printf(&quot;১ থেকে ১০ পর্যন্ত সংখ্যার যোগফল: %d\n&quot;, sum);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-80f7-bd89-ebeef323e0c3" class=""><strong>ব্যবহারক্ষেত্র:</strong> হিসাব-নিকাশে যেমন মাসিক ব্যয়ের যোগফল বা বিলিং সিস্টেম।</p><hr id="15e599c0-57f2-8079-aaf5-fdcfa22cb15e"/><h3 id="15e599c0-57f2-8016-a933-ff9fe778cb43" class="">৩. <strong>টেবিল বা মাল্টিপ্লিকেশন টেবিল তৈরি</strong></h3><p id="15e599c0-57f2-8080-b5d9-df669f0fa700" class="">লুপ ব্যবহার করে খুব সহজে একটি সংখ্যার গুণের টেবিল তৈরি করা যায়।</p><p id="15e599c0-57f2-807e-bf1e-d3ba3f951a13" class=""><strong>উদাহরণ:</strong><br/>ধরা যাক, ৫-এর গুণের টেবিল প্রিন্ট করতে হবে:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8021-af63-d16f96c9bfc8" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int num = 5;
+    for (int i = 1; i &lt;= 10; i++) {
+        printf(&quot;%d x %d = %d\n&quot;, num, i, num * i);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8011-8c2f-cf254ded962a" class=""><strong>ব্যবহারক্ষেত্র:</strong> শিক্ষা বা গণনামূলক কাজে।</p><hr id="15e599c0-57f2-803a-b151-c0b5a1a9e291"/><h3 id="15e599c0-57f2-80f1-9ff5-c55c80f4edfd" class="">৪. <strong>ব্যবহারকারীর ইনপুট প্রক্রিয়াকরণ</strong></h3><p id="15e599c0-57f2-802d-a911-dfbc1da67b67" class="">লুপ ব্যবহার করে ব্যবহারকারীর একাধিক ইনপুট নেওয়া এবং প্রক্রিয়াকরণ করা যায়।</p><p id="15e599c0-57f2-80ea-91e8-edda912a8bc3" class=""><strong>উদাহরণ:</strong><br/>৫টি সংখ্যার যোগফল নির্ণয়:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80f2-afcf-e9b1e7af22a5" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int sum = 0, num;
+    for (int i = 1; i &lt;= 5; i++) {
+        printf(&quot;সংখ্যা দিন (%d): &quot;, i);
+        scanf(&quot;%d&quot;, &amp;num);
+        sum += num;
+    }
+    printf(&quot;সংখ্যাগুলোর মোট যোগফল: %d\n&quot;, sum);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8011-a470-d65032a7df11" class=""><strong>ব্যবহারক্ষেত্র:</strong> ফর্ম ডেটা প্রসেসিং বা রিপোর্ট জেনারেশনের সময়।</p><hr id="15e599c0-57f2-801e-bf3d-f257e6ef13f0"/><h3 id="15e599c0-57f2-80f2-9b52-f11988a40a80" class="">৫. <strong>ডেটা অনুসন্ধান বা প্রাপ্তি (Data Search)</strong></h3><p id="15e599c0-57f2-8040-9b34-f3aacdc844a1" class="">একটি লিস্ট বা অ্যারে থেকে নির্দিষ্ট তথ্য খুঁজে বের করার জন্য লুপ ব্যবহার করা হয়।</p><p id="15e599c0-57f2-803f-9b99-d7dbf75706b3" class=""><strong>উদাহরণ:</strong><br/>অ্যারে থেকে ৫ সংখ্যাটি খুঁজে পাওয়া:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-802f-a78a-ebf7fb8fe61c" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int arr[] = {3, 8, 5, 12, 9};
+    int size = 5, found = 0;
+    for (int i = 0; i &lt; size; i++) {
+        if (arr[i] == 5) {
+            found = 1;
+            printf(&quot;৫ নাম্বারটি %d তম স্থানে পাওয়া গেছে।\n&quot;, i + 1);
+            break;
+        }
+    }
+    if (!found) {
+        printf(&quot;৫ নাম্বারটি পাওয়া যায়নি।\n&quot;);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8015-a73b-fc1e36670869" class=""><strong>ব্যবহারক্ষেত্র:</strong> ডেটাবেস অনুসন্ধান বা ফাইল সিস্টেমে ডেটা খুঁজে বের করা।</p><hr id="15e599c0-57f2-8078-a327-fe8f24672f87"/><h3 id="15e599c0-57f2-805e-857a-db4d3c7a5cb0" class="">৬. <strong>ফ্যাক্টরিয়াল হিসাব করা</strong></h3><p id="15e599c0-57f2-80d9-a161-e000a05c8688" class="">ফ্যাক্টরিয়াল (n!) নির্ণয়ের জন্য লুপ খুবই কার্যকর।</p><p id="15e599c0-57f2-8064-954b-f4435d0f7301" class=""><strong>উদাহরণ:</strong><br/>৫! (৫ ফ্যাক্টরিয়াল) নির্ণয়:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80cc-a3ae-d0faf6634945" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int n = 5, fact = 1;
+    for (int i = 1; i &lt;= n; i++) {
+        fact *= i;
+    }
+    printf(&quot;৫! (ফ্যাক্টরিয়াল) হলো: %d\n&quot;, fact);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-806c-9b77-ec2d9e9a350e" class=""><strong>ব্যবহারক্ষেত্র:</strong> গণিত, পরিসংখ্যান এবং কম্পিউটার সায়েন্সের সমস্যা সমাধান।</p><hr id="15e599c0-57f2-8016-bb4e-e3b6465f0b95"/><h3 id="15e599c0-57f2-809c-aeda-f8192d22f6ea" class="">৭. <strong>গ্রাফিক্স বা প্যাটার্ন আঁকা</strong></h3><p id="15e599c0-57f2-80f6-80c9-d424489225f5" class="">লুপ ব্যবহার করে বিভিন্ন প্যাটার্ন তৈরি করা যায় যা গ্রাফিক্স বা অ্যাস্কি আর্ট তৈরিতে ব্যবহৃত হয়।</p><p id="15e599c0-57f2-8034-80ad-dfcf2fba5b6a" class=""><strong>উদাহরণ:</strong><br/>তিন কোণের প্যাটার্ন আঁকা:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-804c-a5a2-d96be1a96b26" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int rows = 5;
+    for (int i = 1; i &lt;= rows; i++) {
+        for (int j = 1; j &lt;= i; j++) {
+            printf(&quot;* &quot;);
+        }
+        printf(&quot;\n&quot;);
+    }
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8086-852d-e8465660efc2" class=""><strong>আউটপুট:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8026-899d-e1241b4f12bb" class="code"><code class="language-Plain Text" style="white-space:pre-wrap;word-break:break-all">*
+* *
+* * *
+* * * *
+* * * * *
+</code></pre><p id="15e599c0-57f2-8015-b7b3-d6da1be46704" class=""><strong>ব্যবহারক্ষেত্র:</strong> ইউজার ইন্টারফেস ডিজাইন বা গ্রাফিক প্রোগ্রামিং।</p><hr id="15e599c0-57f2-80f4-b3e0-e2b3d0d153c0"/><h3 id="15e599c0-57f2-80f8-ad08-d4c9446fb62a" class="">৮. <strong>সার্চ ইঞ্জিন লজিক বা ফিল্টারিং</strong></h3><p id="15e599c0-57f2-8045-9be5-f81edcf6a265" class="">একটি লিস্ট থেকে নির্দিষ্ট শর্তে ডেটা বের করার ক্ষেত্রে লুপ ব্যবহৃত হয়। যেমন: একটি ই-কমার্স সাইটে ৫০০ টাকার বেশি দামের প্রোডাক্ট ফিল্টার করা।</p><hr id="15e599c0-57f2-80ec-9ddb-dcddbe8d5af6"/><h3 id="15e599c0-57f2-8027-b717-eac371e5cce7" class=""><strong>do-while loop</strong> এর বাস্তব জীবনের ব্যবহার: উদাহরণসহ বিশ্লেষণ</h3><p id="15e599c0-57f2-80f7-937c-e4b0002f85bb" class=""><strong>do-while loop</strong> হলো এমন একটি লুপ যা কমপক্ষে একবার চালানো হয়, কারণ শর্ত যাচাই করার আগে লুপের কোড চালানো হয়। এটি এমন ক্ষেত্রে কার্যকর যেখানে কোনো কাজ অবশ্যই একবার সম্পাদন করতে হবে এবং তারপর শর্ত অনুযায়ী পুনরাবৃত্তি করতে হবে।</p><p id="15e599c0-57f2-806b-9d42-d85bd514f64c" class="">নিচে বাস্তব জীবনের বিভিন্ন উদাহরণে <strong>do-while loop</strong> এর ব্যবহার ব্যাখ্যা করা হলো:</p><hr id="15e599c0-57f2-8057-acd7-da3c05d26b71"/><h3 id="15e599c0-57f2-8075-a4d6-d4706765e00a" class="">১. <strong>পুনরায় ব্যবহারকারীর ইনপুট চাওয়া</strong></h3><p id="15e599c0-57f2-8047-9c99-cd37e69871eb" class="">যখন ব্যবহারকারীকে সঠিক ইনপুট না দেওয়া পর্যন্ত বারবার ইনপুট চাওয়া হয়, তখন <strong>do-while loop</strong> ব্যবহার করা যায়।</p><p id="15e599c0-57f2-8057-b13c-f276c4b2bb98" class="">উদাহরণস্বরূপ, পিন বা পাসওয়ার্ড যাচাই করার ক্ষেত্রে:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8092-a083-d7ecf01bf0aa" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int password;
+    do {
+        printf(&quot;পাসওয়ার্ড দিন (সঠিক পাসওয়ার্ড: 1234): &quot;);
+        scanf(&quot;%d&quot;, &amp;password);
+    } while (password != 1234);
+    printf(&quot;সঠিক পাসওয়ার্ড দেওয়া হয়েছে।\n&quot;);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8022-ae8f-f82d3863fad9" class=""><strong>ব্যবহারক্ষেত্র:</strong> এটিএম মেশিনে পিন যাচাই, লগইন সিস্টেম।</p><hr id="15e599c0-57f2-8012-8e25-ff111dd10c75"/><h3 id="15e599c0-57f2-80eb-aa4c-dba7fa53223d" class="">২. <strong>মেনু-ড্রাইভেন প্রোগ্রাম</strong></h3><p id="15e599c0-57f2-80a7-9466-f0b8de112ef2" class="">কোনো মেনু থেকে ব্যবহারকারীকে অপশন বেছে নিতে দেওয়া এবং পুনরায় মেনু দেখানো পর্যন্ত <strong>do-while loop</strong> ব্যবহার করা হয়।</p><p id="15e599c0-57f2-808f-87ae-d04d705758a7" class=""><strong>উদাহরণ:</strong></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8022-bf2c-dd0fecdc9eaf" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int choice;
+    do {
+        printf(&quot;\nমেনু:\n&quot;);
+        printf(&quot;1. যোগফল দেখুন\n&quot;);
+        printf(&quot;2. বিয়োগফল দেখুন\n&quot;);
+        printf(&quot;3. প্রস্থান করুন\n&quot;);
+        printf(&quot;আপনার পছন্দ দিন: &quot;);
+        scanf(&quot;%d&quot;, &amp;choice);
+
+        switch (choice) {
+            case 1:
+                printf(&quot;যোগফল: 10 + 5 = 15\n&quot;);
+                break;
+            case 2:
+                printf(&quot;বিয়োগফল: 10 - 5 = 5\n&quot;);
+                break;
+            case 3:
+                printf(&quot;প্রোগ্রাম বন্ধ করা হচ্ছে।\n&quot;);
+                break;
+            default:
+                printf(&quot;সঠিক পছন্দ দিন।\n&quot;);
+        }
+    } while (choice != 3);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-80f5-b30c-c88bf1b133c9" class=""><strong>ব্যবহারক্ষেত্র:</strong></p><ul id="15e599c0-57f2-80ac-a71d-c08157f5049e" class="bulleted-list"><li style="list-style-type:disc">সফটওয়্যারে মেনু ভিত্তিক ইন্টারফেস।</li></ul><ul id="15e599c0-57f2-80af-8531-f921109eb998" class="bulleted-list"><li style="list-style-type:disc">ব্যাংকিং বা রেস্টুরেন্ট ম্যানেজমেন্ট সিস্টেম।</li></ul><hr id="15e599c0-57f2-806f-baff-f57aba4fddcb"/><h3 id="15e599c0-57f2-8011-802d-d9fc53cfde93" class="">৩. <strong>ডেটা প্রসেসিং (অন্তত একবার প্রক্রিয়া করা)</strong></h3><p id="15e599c0-57f2-805e-852e-d7a9e580c922" class="">ধরা যাক, ব্যবহারকারীর একাধিক নাম প্রক্রিয়া করতে হবে, তবে প্রথমে অন্তত একটি নাম ইনপুট নিতে হবে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80c8-b34b-c08b2f4f7d2d" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    char name[50];
+    char repeat;
+    do {
+        printf(&quot;আপনার নাম লিখুন: &quot;);
+        scanf(&quot;%s&quot;, name);
+        printf(&quot;স্বাগতম, %s!\n&quot;, name);
+
+        printf(&quot;আরও নাম দিতে চান? (y/n): &quot;);
+        scanf(&quot; %c&quot;, &amp;repeat);
+    } while (repeat == &#x27;y&#x27;);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8070-9784-e709ff7ff285" class=""><strong>ব্যবহারক্ষেত্র:</strong></p><ul id="15e599c0-57f2-8084-93ce-ea8e9a26b8ee" class="bulleted-list"><li style="list-style-type:disc">ব্যবহারকারীর তথ্য সংগ্রহ।</li></ul><ul id="15e599c0-57f2-80c1-8cd3-eb7b476a3452" class="bulleted-list"><li style="list-style-type:disc">ফর্ম ইনপুটের প্রক্রিয়াকরণ।</li></ul><hr id="15e599c0-57f2-8026-9926-ced91379c9f8"/><h3 id="15e599c0-57f2-80e2-8b5f-c25c858be455" class="">৪. <strong>গেমিং সিস্টেম</strong></h3><p id="15e599c0-57f2-8006-90cb-cf1492335e7c" class="">ধরা যাক, গেম খেলার সময় ব্যবহারকারীকে বারবার জিজ্ঞাসা করা হবে যে তারা আবার খেলতে চান কিনা।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-80f6-9ffc-e2ce53521e2d" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    char playAgain;
+    do {
+        printf(&quot;গেম চলছে...\n&quot;);
+        printf(&quot;আপনি আবার খেলতে চান? (y/n): &quot;);
+        scanf(&quot; %c&quot;, &amp;playAgain);
+    } while (playAgain == &#x27;y&#x27;);
+    printf(&quot;গেম শেষ।\n&quot;);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8026-961e-da7b02d97eb6" class=""><strong>ব্যবহারক্ষেত্র:</strong></p><p id="15e599c0-57f2-8067-b06f-c20e0e5c0708" class="">ভিডিও গেম বা বোর্ড গেম সিস্টেম যেখানে ব্যবহারকারী বারবার খেলার সুযোগ পান।</p><hr id="15e599c0-57f2-80b9-b82e-f5dab757eeb9"/><h3 id="15e599c0-57f2-80f8-84f0-f39ee5785a4b" class="">৫. <strong>অনুমানমূলক গেম (Guessing Game)</strong></h3><p id="15e599c0-57f2-80eb-b5e2-ce75680048bc" class="">ব্যবহারকারীকে একটি সঠিক সংখ্যা অনুমান করতে বলা হয়। সঠিক উত্তর দেওয়ার আগ পর্যন্ত এটি চলবে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-803c-8c50-d99487b69928" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    int number = 7, guess;
+    do {
+        printf(&quot;একটি সংখ্যা অনুমান করুন (১-১০): &quot;);
+        scanf(&quot;%d&quot;, &amp;guess);
+        if (guess != number) {
+            printf(&quot;ভুল অনুমান! আবার চেষ্টা করুন।\n&quot;);
+        }
+    } while (guess != number);
+    printf(&quot;অভিনন্দন! আপনি সঠিক সংখ্যা অনুমান করেছেন।\n&quot;);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-8052-a5f4-ee54a8f66803" class=""><strong>ব্যবহারক্ষেত্র:</strong></p><ul id="15e599c0-57f2-8097-a74a-d172a286760d" class="bulleted-list"><li style="list-style-type:disc">গেম ডিজাইন।</li></ul><ul id="15e599c0-57f2-8057-937c-d9e9a6704cbd" class="bulleted-list"><li style="list-style-type:disc">শিক্ষা বা মজার কার্যক্রম।</li></ul><hr id="15e599c0-57f2-8080-81d3-fc7362a87015"/><h3 id="15e599c0-57f2-8005-8926-c3d2f686fd9c" class="">৬. <strong>ফাইল পড়া এবং প্রক্রিয়াকরণ</strong></h3><p id="15e599c0-57f2-80b2-be42-c3cf0056e132" class="">ফাইলের ডেটা পড়তে এবং শেষ পর্যন্ত প্রক্রিয়া চালাতে <strong>do-while loop</strong> ব্যবহার করা হয়।</p><p id="15e599c0-57f2-80ac-aa65-f241173b8e30" class="">ধরা যাক, একটি ফাইলের প্রতিটি লাইন পড়া হচ্ছে।</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="15e599c0-57f2-8097-bdaf-db4d27fe5012" class="code"><code class="language-C" style="white-space:pre-wrap;word-break:break-all">#include &lt;stdio.h&gt;
+int main() {
+    FILE *file;
+    char line[100];
+    file = fopen(&quot;data.txt&quot;, &quot;r&quot;);
+    if (file == NULL) {
+        printf(&quot;ফাইল খোলা যায়নি।\n&quot;);
+        return 1;
+    }
+
+    do {
+        if (fgets(line, sizeof(line), file)) {
+            printf(&quot;%s&quot;, line);
+        }
+    } while (!feof(file));
+
+    fclose(file);
+    return 0;
+}
+</code></pre><p id="15e599c0-57f2-809f-ab2d-f2ae92ff8ef6" class=""><strong>ব্যবহারক্ষেত্র:</strong></p><ul id="15e599c0-57f2-80f8-a44b-e6c3a2e9fe85" class="bulleted-list"><li style="list-style-type:disc">ফাইল প্রসেসিং সিস্টেম।</li></ul><ul id="15e599c0-57f2-80ef-953b-e1e718255f7e" class="bulleted-list"><li style="list-style-type:disc">ডেটা এনালাইসিস বা লগ পড়া।</li></ul><hr id="15e599c0-57f2-8021-aa37-e9c26a396749"/><p id="15e599c0-57f2-80ee-be85-fa0b8a5362af" class="">
+</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
